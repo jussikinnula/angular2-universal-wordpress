@@ -1,0 +1,4 @@
+{
+    "watch": ["target/server"],
+    "ext": "js"
+}

@@ -1,0 +1,8 @@
+**/node_modules/
+/target
+tmp/
+__MACOSX/
+.DS_Store
+Thumbs.db
+.env
+npm-debug.log

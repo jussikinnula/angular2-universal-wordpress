@@ -1,0 +1,14 @@
+h1 Angular 2 Universal + WordPress REST API
+nav
+    a(
+        [routerLink]="['/']",
+        routerLinkActive="active",
+        [routerLinkActiveOptions]="{exact: true}"
+    ) Home
+    a(
+        [routerLink]="['/about']",
+        routerLinkActive="active",
+        [routerLinkActiveOptions]="{exact: true}"
+    ) About
+main
+    router-outlet
