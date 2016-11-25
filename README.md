@@ -6,8 +6,8 @@ Starter for Angular 2 Universal + WordPress REST API use.
 
 The projects needs that you have the following things installed:
 
-- [NodeJS](https://nodejs.org/) (version 6 or greater, tested with 6.9.1)
 - [Heroku Toolbelt](https://toolbelt.heroku.com/) (latest)
+- [NodeJS](https://nodejs.org/) (version 6 or greater, tested with 6.9.1)
 
 All of the prequisities are available on Linux, Windows and Mac OS X systems with their own installers (just go to links above and download package).
 
@@ -67,29 +67,34 @@ npm install -g webpack
 
 On Windows installations, it will ease the task if you use PowerShell and add all the necessary paths to utilities to Windows environment path. To do so, you can right-click the *Start* -button, select *Advanced System Settings* and finally select *Environment Variables*. You need to restart the PowerShell (or possibly logout and login) to get the environment variables going.
 
-## Installation
-
-### Install node modules and type definitions
-
-```
-npm install
-```
-
 ## Local development
+
+If you have installed `dotenv`, you can automate reading of your `.env` file by adding `dotenv` on top of your command, like `dotenv npm run dev` (loads `.env` and then starts development).
+
+### Basic tasks
+
+- `npm install` = install dependencies
+- `npm prune` = removes `npm` -packages not in `package.json`
+- `npm run clean` = Clean `target` -directory
 
 ### Production builds
 
-If you want to make production build, you can do that locally with `npm run build:prod` (or just `npm run build`). A build is also done automatically when installing npm packages (`npm install`), to automate build process.
-
-You can run a production server by giving command `npm run server:prod` (or just `npm run server` or `npm start`).
+- `npm run build` = alias for `npm run build:prod`
+- `npm run build:prod` = do production build
+- `npm start` = alias for `npm run server`
+- `npm run server` = alias for `npm run server:prod`
+- `npm run server:prod` = runs production server
 
 ### Development builds
 
-For development, WebPack can be started in *watch mode*, accompanied with *LiveReload* and *Nodemon* - the development process automatically respawns the server and reloads client assets on code changes.
-
-You can run the development builds by giving command `npm run dev`, which first compiles a development build (`npm run build:dev`) and starts two concurrent tasks: *Nodemon* (`npm run server:dev`) and WebPack in watch mode (`npm run watch`).
-
-You can use the separate tasks in two terminals if you want (e.g. first do `npm run dev` to make a fresh development build, then start WebPack in watch mode `npm run watch` and finally start development server `npm run server:dev`).
+- `npm run dev` = alias for `npm run dev:frontend`
+- `npm run dev:frontend` = *Frontend Development*: does cleanup (`npm run clean`), and then runs WebPack development server (`npm run clean`)
+- `npm run dev:backend` = *Backend Development*: does cleanup (`npm run clean`), makes development build (`npm run build:dev`) and starts 
+- `npm run build:dev` = make development build
+- `npm run server:dev` = alias for `npm run server:dev:fullstack`
+- `npm run server:dev:frontend` = WebPack development server with LiveReload (does not run backend at all)
+- `npm run server:dev:backend` = Nodemon, reloads backend automatically.
+- `npm run watch` = create continuous builds (for both frontend and backend, when code changes)
 
 ### Open local app in browser
 
@@ -126,3 +131,33 @@ git push heroku master
 heroku open
 ```
 
+## WordPress
+
+You could start your WordPress installation by grabbing [bedrock-on-heroku](https://github.com/frc/bedrock-on-heroku).
+
+The WordPress setup has been tested with the following dependencies:
+
+- [WordPress](https://wordpress.org/) (version 4.4 or later, tested with 4.6.1)
+- [WP REST API](http://v2.wp-api.org/) (version 2.0, tested with )
+- [WP API Menus](https://wordpress.org/plugins/wp-api-menus/) (tested with 1.3.1)
+- Optional: [ACF PRO](https://www.advancedcustomfields.com/pro/) (tested with 5.4.1)
+- Optional: [ACF to REST API](https://wordpress.org/plugins/acf-to-rest-api/) (tested with 2.2.1)
+
+You can add the dependencies to the `composer.json` file (remember to `composer update` after adding):
+
+```
+  ...
+  "require": {
+    ...
+    "wp-api/wp-api": "2.0-beta15",
+    "wpackagist-plugin/wp-api-menus": "~1.3.1",
+    "wpackagist-plugin/acf-to-rest-api": "~2.2.1"
+  },
+  ...
+```
+
+Note! You need to manually obtain ACF PRO (if you wish to use it). There's for example installer for it, which you can add to your `composer.json` with command:
+
+```
+composer require advanced-custom-fields/advanced-custom-fields-pro:*
+```
