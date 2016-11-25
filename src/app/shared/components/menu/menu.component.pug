@@ -1,0 +1,13 @@
+.item(*ngFor="let item of items")
+    a(
+        [routerLink]="[item.link]",
+        routerLinkActive="active",
+        [routerLinkActiveOptions]="{exact: true}"
+    ) {{item.title}}
+    .children(*ngIf="item.children")
+        .item(*ngFor="let child of item.children")
+            a(
+                [routerLink]="[child.link]",
+                routerLinkActive="active",
+                [routerLinkActiveOptions]="{exact: true}"
+            ) {{child.title}}

@@ -1,0 +1,26 @@
+:host
+    display block
+    background-color black
+    padding 0
+    margin 0
+
+.item
+    display inline-block
+    &:hover
+        .children
+            display block
+
+.children
+    display none
+    position absolute
+    background-color black
+    border 1px solid black
+
+a
+    color white
+    font-weight bold
+    text-decoration none
+    padding 20px
+    display block
+    &:hover
+        background red

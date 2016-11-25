@@ -1,3 +1,4 @@
-export * from "./api.service";
-export * from "./cache.service";
+export * from "./components";
+export * from "./pipes";
+export * from "./services";
 export * from "./shared.module";

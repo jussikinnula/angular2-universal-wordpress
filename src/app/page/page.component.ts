@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/core";
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/core";
 
 import { ApiService } from "../shared";
 
@@ -12,7 +12,7 @@ export class PageComponent {
     constructor(private apiService: ApiService) {
         this.apiService.get("/wp-json/wp/v2/pages").subscribe(
             pages => {
-                console.log(pages);
+                //console.log(pages);
             },
             error => {
                 console.error(error);

@@ -1,23 +1,37 @@
 import { NgModule, ModuleWithProviders } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 
-import { ApiService } from "./api.service";
-import { DatePipe } from "./date.pipe";
-import { OrderByPipe } from "./order-by.pipe";
+import { MenuComponent } from "./components";
+import { DatePipe, OrderByPipe } from "./pipes";
+import { ApiService } from "./services";
 
-const PIPES: any[] = [
+const COMPONENTS = [
+    MenuComponent
+];
+
+const PIPES = [
     DatePipe,
     OrderByPipe
 ];
 
 const SERVICES = [
     ApiService
-]
+];
 
 @NgModule({
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule
+    ],
     declarations: [
+        ...COMPONENTS,
         ...PIPES
     ],
     exports: [
+        ...COMPONENTS,
         ...PIPES
     ]
 })
