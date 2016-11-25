@@ -3,7 +3,8 @@ import { FormsModule } from "@angular/forms";
 
 import { SharedModule } from "./shared";
 
-import { HomeModule } from "./home";
+import { BlogModule } from "./blog";
+import { FrontpageModule } from "./frontpage";
 import { PageModule } from "./page";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -16,7 +17,8 @@ import { AppComponent } from "./app.component";
     ],
     imports: [
         SharedModule.forRoot(),
-        HomeModule,
+        BlogModule,
+        FrontpageModule,
         PageModule,
         AppRoutingModule
     ]

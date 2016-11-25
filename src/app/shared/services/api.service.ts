@@ -5,8 +5,6 @@ import "rxjs/add/observable/throw";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 
-declare var process: any;
-
 @Injectable()
 export class ApiService {
     private baseUrl: string = process.env.WP_HOME || "http://localhost:5001";

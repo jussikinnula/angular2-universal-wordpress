@@ -3,9 +3,9 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/
 @Component({
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.Emulated,
-    styleUrls: ["./home.component.styl"],
-    templateUrl: "./home.component.pug"
+    styleUrls: ["./frontpage.component.styl"],
+    templateUrl: "./frontpage.component.pug"
 })
-export class HomeComponent {
+export class FrontpageComponent {
     constructor() {}
 }

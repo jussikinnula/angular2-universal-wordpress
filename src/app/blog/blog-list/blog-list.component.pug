@@ -1,0 +1,10 @@
+.content-block
+    h2 Blog list
+    ul
+        li(*ngFor="let blog of blogs | orderBy:'created':true")
+            a(
+                [innerHTML]="blog.title | sanitize",
+                [routerLink]="[blog.link]",
+                routerLinkActive="active",
+                [routerLinkActiveOptions]="{exact: true}"
+            )

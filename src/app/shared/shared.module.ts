@@ -4,8 +4,8 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 
 import { MenuComponent } from "./components";
-import { DatePipe, OrderByPipe } from "./pipes";
-import { ApiService } from "./services";
+import { DatePipe, OrderByPipe, SanitizePipe } from "./pipes";
+import { ApiService, MediaService } from "./services";
 
 const COMPONENTS = [
     MenuComponent
@@ -13,11 +13,13 @@ const COMPONENTS = [
 
 const PIPES = [
     DatePipe,
-    OrderByPipe
+    OrderByPipe,
+    SanitizePipe
 ];
 
 const SERVICES = [
-    ApiService
+    ApiService,
+    MediaService
 ];
 
 @NgModule({
@@ -32,7 +34,9 @@ const SERVICES = [
     ],
     exports: [
         ...COMPONENTS,
-        ...PIPES
+        ...PIPES,
+        CommonModule,
+        FormsModule
     ]
 })
 export class SharedModule {

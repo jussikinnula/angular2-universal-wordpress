@@ -1,0 +1,20 @@
+.content-block
+    p
+        a([routerLink]="['../']") &laquo; Blogs index
+
+.content-block(*ngIf="loading")
+    p Loading...
+
+.content-block(*ngIf="!loading && blog")
+    h2 {{blog.title}}
+
+    template([ngIf]="media")
+        h3 Featured media:
+        img([src]="media.link")
+
+    h3 Content:
+    .content([innerHTML]="blog.content")
+
+.content-block(*ngIf="!loading && blogNotFound")
+    h2 Blog Not Found
+    p The blog you requested was not found.

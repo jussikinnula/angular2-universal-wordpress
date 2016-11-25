@@ -1,16 +1,16 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
-import { PageComponent } from "./page.component";
+import { FrontpageComponent } from "./frontpage.component";
 
 @NgModule({
     imports: [
         RouterModule.forChild([
-            { path: "**", component: PageComponent, pathMatch: "full" }
+            { path: "", component: FrontpageComponent, pathMatch: "full" }
         ])
     ],
     exports: [
         RouterModule
     ]
 })
-export class PageRoutingModule { }
+export class FrontpageRoutingModule { }

@@ -1,13 +1,15 @@
-.item(*ngFor="let item of items")
+.item(*ngFor="let item of items | orderBy:'order':false")
     a(
+        [innerHTML]="item.title | sanitize",
         [routerLink]="[item.link]",
         routerLinkActive="active",
         [routerLinkActiveOptions]="{exact: true}"
-    ) {{item.title}}
+    )
     .children(*ngIf="item.children")
         .item(*ngFor="let child of item.children")
             a(
+                [innerHTML]="child.title | sanitize",
                 [routerLink]="[child.link]",
                 routerLinkActive="active",
                 [routerLinkActiveOptions]="{exact: true}"
-            ) {{child.title}}
+            )
