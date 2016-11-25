@@ -11,6 +11,7 @@
     "build:prod": "webpack --config config/webpack.production.ts --progress",
     "prebuild:dev": "npm run clean",
     "build:dev": "webpack --config config/webpack.development.ts --progress",
+    "build": "npm run build:prod",
     "clean": "rimraf target",
     "predev:frontend": "npm run clean",
     "dev:frontend": "npm run server:dev:frontend",
