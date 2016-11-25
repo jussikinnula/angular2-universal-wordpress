@@ -48,7 +48,7 @@ export class MenuComponent implements OnInit {
     }
 
     private findMenuFromSlug(slug: string): Observable<any> {
-        return this.apiService.get(this.baseUrl)
+        return this.apiService.get(this.baseUrl + "?per_page=100&page=1")
             .map( menus => menus.map(menu => new Menu(menu)) )
             .map( menus => menus.filter(menu => menu.slug === slug) )
             .map( menus => menus[0] );

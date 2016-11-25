@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/core";
 
 import { BlogService } from "../blog.service";
 import { IBlog } from "../blog.model";
@@ -10,9 +10,27 @@ import { IBlog } from "../blog.model";
     templateUrl: "./blog-list.component.pug"
 })
 export class BlogListComponent {
-    blogs: IBlog[];
+    blogs: IBlog[] = [];
+    loading: boolean = false;
+    noMore: boolean = false;
+    private page = 0;
 
-    constructor(private blogService: BlogService) {
-        this.blogService.list().subscribe( blogs => this.blogs = blogs );
+    constructor(private blogService: BlogService) {}
+
+    ngOnInit() {
+        this.loadMore();
+    }
+
+    loadMore() {
+        this.page++;
+        this.loading = true;
+        this.blogService.list(this.page, 10).subscribe( blogs => {
+            this.loading = false;
+            if (blogs && blogs.length > 0) {
+                this.blogs = this.blogs.concat(blogs);
+            } else {
+                this.noMore = true;
+            }
+        });
     }
 }

@@ -15,13 +15,15 @@ export class BlogService {
 
     constructor(private apiService: ApiService) {}
 
-    list(): Observable<any> {
-        return this.apiService.get(this.baseUrl + "/?filter[type]=post")
+    list(page: number = 1, count: number = 10): Observable<any> {
+        const url = this.baseUrl + "/?filter[type]=post&per_page=" + count + "&page=" + page;
+        return this.apiService.get(url)
             .map(blogs => blogs.map(blog => new Blog(blog)) );
     }
 
     get(slug: string): Observable<any> {
-        return this.apiService.get(this.baseUrl + "/?filter[type]=post&filter[name]=" + slug)
+        const url = this.baseUrl + "/?filter[type]=post&filter[name]=" + slug;
+        return this.apiService.get(url)
             .map(blogs => blogs.map(blog => new Blog(blog)) )
     }
 }

@@ -8,3 +8,9 @@
                 routerLinkActive="active",
                 [routerLinkActiveOptions]="{exact: true}"
             )
+    p
+        button(
+            *ngIf="!noMore",
+            (click)="loadMore()",
+            [disabled]="loading"
+        ) Load more
