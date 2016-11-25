@@ -16,7 +16,7 @@
     "predev:frontend": "npm run clean",
     "dev:frontend": "npm run server:dev:frontend",
     "predev:backend": "npm run clean && npm run build:dev",
-    "dev:backend": "concurrently 'npm run server:dev' 'npm run watch'",
+    "dev:backend": "concurrently 'npm run server:dev:backend' 'npm run watch'",
     "dev": "npm run dev:frontend",
     "postinstall": "npm run build",
     "server:prod": "node target/server/index.js",
