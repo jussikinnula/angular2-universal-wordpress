@@ -119,6 +119,13 @@ WP_HOME=https://some-wp-server-in.herokuapp.com
 heroku create --region eu myuniversalapp
 ```
 
+### Add buildpacks
+
+```
+heroku buildpacks:add https://github.com/heroku/heroku-buildpack-nodejs
+heroku buildpacks:add https://github.com/stomita/heroku-buildpack-phantomjs
+```
+
 ### Deploy
 
 ```
