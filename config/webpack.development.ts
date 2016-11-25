@@ -4,16 +4,11 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 
 const DefinePlugin = webpack.DefinePlugin;
-const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 import commonWebpackConfig, { root,  includeClientPackages } from './webpack.common';
 
 
-export const commonPlugins = [
-    new LiveReloadPlugin({
-        appendScriptTag: true
-    })
-];
+export const commonPlugins = [];
 
 export const commonConfig = {
     devtool: 'cheap-source-map'

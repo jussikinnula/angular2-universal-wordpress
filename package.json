@@ -12,11 +12,16 @@
     "prebuild:dev": "npm run clean",
     "build:dev": "webpack --config config/webpack.development.ts --progress",
     "clean": "rimraf target",
-    "predev": "npm run build:dev",
-    "dev": "concurrently 'npm run server:dev' 'npm run watch'",
+    "predev:frontend": "npm run clean",
+    "dev:frontend": "npm run server:dev:frontend",
+    "predev:backend": "npm run clean && npm run build:dev",
+    "dev:backend": "concurrently 'npm run server:dev' 'npm run watch'",
+    "dev": "npm run dev:frontend",
     "postinstall": "npm run build",
     "server:prod": "node target/server/index.js",
-    "server:dev": "nodemon target/server/index.js",
+    "server:dev:frontend": "webpack-dev-server --config config/webpack.devserver.ts",
+    "server:dev:backend": "nodemon target/server/index.js",
+    "server:dev": "npm run server:dev:frontend",
     "server": "npm run server:prod",
     "start": "npm run server",
     "watch": "webpack --config config/webpack.development.ts --watch"
@@ -94,7 +99,6 @@
     "concurrently": "^3.1.0",
     "nodemon": "~1.11.0",
     "webpack-dev-middleware": "~1.8.4",
-    "webpack-dev-server": "2.1.0-beta.11",
-    "webpack-livereload-plugin": "~0.9.0"
+    "webpack-dev-server": "^2.1.0-beta.11"
   }
 }
