@@ -75,7 +75,6 @@ export var commonConfig = {
 
 // Client.
 export var clientPlugins = [
-    new TestWebpackPlugin(),
     new CopyWebpackPlugin([
         {
             from: 'src/images',

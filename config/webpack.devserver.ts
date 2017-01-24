@@ -38,7 +38,12 @@ export const config = {
 };
 
 export default webpackMerge(
-    commonWebpackConfig[0],
+    clone(commonWebpackConfig.commonConfig),
+    commonWebpackConfig.clientConfig,
     config,
-    { plugins: commonWebpackConfig[0].plugins.concat(plugins) }
+    { plugins: [
+        ...commonWebpackConfig.commonPlugins,
+        ...commonWebpackConfig.clientPlugins,
+        ...plugins
+    ]}
 );
