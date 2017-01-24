@@ -8,14 +8,12 @@ const DefinePlugin = webpack.DefinePlugin;
 const LoaderOptionsPlugin = webpack.LoaderOptionsPlugin;
 const NormalModuleReplacementPlugin = webpack.NormalModuleReplacementPlugin;
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-const V8LazyParseWebpackPlugin = require('v8-lazy-parse-webpack-plugin');
 
-import commonWebpackConfig, { root,  includeClientPackages } from './webpack.common';
+import { root, includeClientPackages } from './helpers';
+import * as commonWebpackConfig from './webpack.common';
 
 
 export const commonPlugins = [
-    new V8LazyParseWebpackPlugin(),
-
     // Loader options
     new LoaderOptionsPlugin({
         minimize: true,
@@ -148,17 +146,29 @@ export const serverConfig = {};
 export default [
     // Client
     webpackMerge(
-        commonWebpackConfig[0],
+        clone(commonWebpackConfig.commonConfig),
+        commonWebpackConfig.clientConfig,
         clone(commonConfig),
         clientConfig,
-        { plugins: commonWebpackConfig[0].plugins.concat(commonPlugins, clientPlugins) }
+        { plugins: [
+            ...commonWebpackConfig.commonPlugins,
+            ...commonWebpackConfig.clientPlugins,
+            ...commonPlugins,
+            ...clientPlugins
+        ]}
     ),
 
     // Server
     webpackMerge(
-        commonWebpackConfig[1],
+        clone(commonWebpackConfig.commonConfig),
+        commonWebpackConfig.serverConfig,
         clone(commonConfig),
         serverConfig,
-        { plugins: commonWebpackConfig[1].plugins.concat(commonPlugins, serverPlugins) }
+        { plugins: [
+            ...commonWebpackConfig.commonPlugins,
+            ...commonWebpackConfig.serverPlugins,
+            ...commonPlugins,
+            ...serverPlugins
+        ]}
     )
 ];

@@ -5,7 +5,8 @@ const webpackMerge = require('webpack-merge');
 
 const DefinePlugin = webpack.DefinePlugin;
 
-import commonWebpackConfig, { root,  includeClientPackages } from './webpack.common';
+import { root, includeClientPackages } from './helpers';
+import * as commonWebpackConfig from './webpack.common';
 
 
 export const commonPlugins = [];
@@ -36,16 +37,29 @@ export const serverConfig = {};
 export default [
     // Client
     webpackMerge(
-        commonWebpackConfig[0],
+        clone(commonWebpackConfig.commonConfig),
+        commonWebpackConfig.clientConfig,
         clone(commonConfig),
         clientConfig,
-        { plugins: commonWebpackConfig[0].plugins.concat(commonPlugins, clientPlugins) }
+        { plugins: [
+            ...commonWebpackConfig.commonPlugins,
+            ...commonWebpackConfig.clientPlugins,
+            ...commonPlugins,
+            ...clientPlugins
+        ]}
     ),
 
     // Server
     webpackMerge(
-        commonWebpackConfig[1],
+        clone(commonWebpackConfig.commonConfig),
+        commonWebpackConfig.serverConfig,
         clone(commonConfig),
-        serverConfig, 
-        { plugins: commonWebpackConfig[1].plugins.concat(commonPlugins, serverPlugins) })
+        serverConfig,
+        { plugins: [
+            ...commonWebpackConfig.commonPlugins,
+            ...commonWebpackConfig.serverPlugins,
+            ...commonPlugins,
+            ...serverPlugins
+        ]}
+    )
 ];

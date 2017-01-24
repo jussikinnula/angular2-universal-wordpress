@@ -24,16 +24,16 @@ export class MenuComponent implements OnInit {
 
     ngOnInit() {
         if (this.id) {
-            this.getMenu(this.id).subscribe(menu => this.items = menu.items);
+            this.getMenu(this.id).subscribe(
+                menu => this.items = menu.items,
+                error => this.items = [this.defaultItem]
+            );
         } else if (this.slug) {
             this.findMenuFromSlug(this.slug)
+                .flatMap(menu => this.getMenu(menu.id))
                 .subscribe(
-                    menu => {
-                        this.getMenu(menu.id).subscribe(menu => this.items = menu.items);
-                    },
-                    error => {
-                        console.error(error);
-                    }
+                    menu => this.items = menu.items,
+                    error => this.items = [this.defaultItem]
                 );
         } else {
             console.log("No slug nor id found :-(");
@@ -43,14 +43,15 @@ export class MenuComponent implements OnInit {
 
     private getMenu(id: number): Observable<any> {
         return this.apiService.get(this.baseUrl + "/" + id)
-            .map( menu => new Menu(menu) )
-            .catch( error => Observable.of([this.defaultItem]) );
+            .map(menu => new Menu(menu))
+            .catch(error => Observable.throw(new Error()));
     }
 
     private findMenuFromSlug(slug: string): Observable<any> {
         return this.apiService.get(this.baseUrl + "?per_page=100&page=1")
-            .map( menus => menus.map(menu => new Menu(menu)) )
-            .map( menus => menus.filter(menu => menu.slug === slug) )
-            .map( menus => menus[0] );
+            .map(menus => menus.map(menu => new Menu(menu)))
+            .map(menus => menus.find(menu => menu.slug === slug))
+            .filter(menu => (menu))
+            .catch(error => Observable.throw(new Error()));
     }
 }

@@ -5,7 +5,8 @@ const webpackMerge = require('webpack-merge');
 
 const DefinePlugin = webpack.DefinePlugin;
 
-import commonWebpackConfig, { root,  includeClientPackages } from './webpack.common';
+import { root, includeClientPackages } from './helpers';
+import * as commonWebpackConfig from './webpack.common';
 
 export const plugins = [
     new DefinePlugin({
