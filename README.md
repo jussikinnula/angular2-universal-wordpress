@@ -180,3 +180,29 @@ Setup WordPress regularly (instructions can be read from [angular2-universal-wor
 Enable the plugins you need, but remember that this repository depends on having *WP API Menus* and *WP API REST filter* plugins. The latter one is just increasing the speed greatly, as otherwise slug finding is too heavy operation for larger site (e.g. download all pages JSON, to resolve slug).
 
 Note! Custom WP-API end points would help on creating end points which support slugs for post finding, and even parsing some of the content on the WP server side.
+
+## Local Development
+
+Start two terminals, and do the following...
+
+### Launch Angular 2 app
+
+```
+cd ~/Devel/angular2-universal-wordpress
+npm install # this is only needed the first time
+npm run dev
+```
+
+If you wish to test server side rendering locally you can also run `npm run dev:backend`.
+
+You can launch http://localhost:5000 to see the app in action. When code changes, `npm run dev` mode automatically reloads the page using LiveReload.
+
+### Launch local WP
+
+```
+cd ~/Devel/angular2-universal-wordpress-wp-test
+composer install # this is only needed the first time
+PORT=5001 heroku local
+```
+
+First time do regular WP installation at http://localhost:5001, later just log-in at http://localhost:5001/wp/wp-login.php.
