@@ -140,31 +140,43 @@ heroku open
 
 ## WordPress
 
-You could start your WordPress installation by grabbing [bedrock-on-heroku](https://github.com/frc/bedrock-on-heroku).
+You could start your WordPress installation by grabbing [angular2-universal-wordpress-wp-test](https://github.com/jussikinnula/angular2-universal-wordpress-wp-test) (forked from [bedrock-on-heroku](https://github.com/frc/bedrock-on-heroku)).
+
+### Dependencies
 
 The WordPress setup has been tested with the following dependencies:
 
-- [WordPress](https://wordpress.org/) (version 4.4 or later, tested with 4.6.1)
-- [WP REST API](http://v2.wp-api.org/) (version 2.0, tested with )
+- [WordPress](https://wordpress.org/) (version 4.7.0 or later, tested with version 4.7.2)
 - [WP API Menus](https://wordpress.org/plugins/wp-api-menus/) (tested with 1.3.1)
+- [WP API REST filter](https://github.com/WP-API/rest-filter) (tested with version 0.1)
+- Optional: [ACF](https://www.advancedcustomfields.com/) (tested with 4.4.2)
 - Optional: [ACF PRO](https://www.advancedcustomfields.com/pro/) (tested with 5.4.1)
 - Optional: [ACF to REST API](https://wordpress.org/plugins/acf-to-rest-api/) (tested with 2.2.1)
 
-You can add the dependencies to the `composer.json` file (remember to `composer update` after adding):
+### Composer
+
+You can add the dependencies to the `composer.json` file (remember to `composer update` after adding).
+
+These packages are already added to [angular2-universal-wordpress-wp-test](https://github.com/jussikinnula/angular2-universal-wordpress-wp-test) starter, but if you wish to extend existing site you could copy & paste the following to your *composer.json*.
 
 ```
   ...
   "require": {
     ...
-    "wp-api/wp-api": "2.0-beta15",
     "wpackagist-plugin/wp-api-menus": "~1.3.1",
+    "jussikinnula/wp-rest-filter": "0.1",
+    "ycms/advanced-custom-fields": "dev-master",
     "wpackagist-plugin/acf-to-rest-api": "~2.2.1"
   },
   ...
 ```
 
-Note! You need to manually obtain ACF PRO (if you wish to use it). There's for example installer for it, which you can add to your `composer.json` with command:
+Note! If you wish to use ACF PRO, you need to purchase it! For simple website/blog use the non-Pro version should satisfy just fine.
 
-```
-composer require advanced-custom-fields/advanced-custom-fields-pro:*
-```
+### Setup
+
+Setup WordPress regularly (instructions can be read from [angular2-universal-wordpress-wp-test](https://github.com/jussikinnula/angular2-universal-wordpress-wp-test)). Remember to set permalink settings (under "Settings" / "Permalinks") to "Post name" (http://localhost:5001/sample-post/), otherwise WP-API won't work.
+
+Enable the plugins you need, but remember that this repository depends on having *WP API Menus* and *WP API REST filter* plugins. The latter one is just increasing the speed greatly, as otherwise slug finding is too heavy operation for larger site (e.g. download all pages JSON, to resolve slug).
+
+Note! Custom WP-API end points would help on creating end points which support slugs for post finding, and even parsing some of the content on the WP server side.
