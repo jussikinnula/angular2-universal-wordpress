@@ -9,19 +9,16 @@ export class MetaService {
     description: string = "";
     image: string = "";
     link: string = "";
-    private siteUrl: string = process.env.SITE_URL || "http://localhost:5000";
 
     constructor(
         @Inject(DOCUMENT) private document: any,
         private mediaService: MediaService
-    ) {
-        this.updateFields();
-    }
+    ) {}
 
     setMeta(params: any) {
-        this.title = params["title"] ? params["title"] : "Default title";
-        this.description = params["description"] ? params["description"]: "Default description";
-        this.link = this.siteUrl + "/" + (params["link"] ? params["link"] : "");
+        this.title = params["title"] ? params["title"] : "";
+        this.description = params["description"] ? params["description"]: "";
+        this.link = params["link"] ? params["link"] : "";
         if (params["image"] && params["image"] > 0) {
             this.mediaService.get(params["image"]).subscribe(
                 media => {
@@ -30,7 +27,7 @@ export class MetaService {
                 },
                 error => {})
         } else {
-            this.image = "https://placehold.it/512x512";
+            this.image = "";
             this.updateFields();
         }
 
@@ -57,18 +54,20 @@ export class MetaService {
 
     private setMetaDescription(content: string) {
         let headChildren = this.document.head.children;
-        for (let element of headChildren) {
-            if (element.tagName.toLowerCase() === "meta" && element.getAttribute("name") === "description") {
-                element.setAttribute("content", content);
+        for (let i = 0; i < headChildren.length; i++) {
+            let element = headChildren[i];
+            if (element.name === "meta" && element.attribs.name === "description"){
+                element.attribs.content = content;
             }
         }
     }
 
     private setMetaProperty(property: string, content: string) {
         let headChildren = this.document.head.children;
-        for (let element of headChildren) {
-            if (element.tagName.toLowerCase() === "meta" && element.getAttribute("property") === property) {
-                element.setAttribute("content", content);
+        for (let i = 0; i < headChildren.length; i++) {
+            let element = headChildren[i];
+            if (element.name === "meta" && element.attribs.property === property){
+                element.attribs.content = content;
             }
         }
     }
