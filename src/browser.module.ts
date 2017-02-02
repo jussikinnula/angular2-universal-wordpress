@@ -6,10 +6,6 @@ import { UniversalModule, isBrowser, isNode, AUTO_PREBOOT } from "angular2-unive
 import { AppModule, AppComponent } from "./app";
 import { SharedModule, CacheService } from "./app/shared";
 
-// Will be merged into @angular/platform-browser in a later release
-// see https://github.com/angular/angular/pull/12322
-import { Meta } from "./angular2-meta";
-
 // import * as LRU from "modern-lru";
 
 export function getLRU(lru?: any) {
@@ -43,8 +39,7 @@ export const UNIVERSAL_KEY = "UNIVERSAL_CACHE";
         { provide: "req", useFactory: getRequest },
         { provide: "res", useFactory: getResponse },
         { provide: "LRU", useFactory: getLRU, deps: [] },
-        CacheService,
-        Meta
+        CacheService
     ]
 })
 export class MainModule {

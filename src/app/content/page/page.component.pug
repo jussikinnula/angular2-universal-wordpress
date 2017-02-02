@@ -1,0 +1,23 @@
+template([ngIf]="page")
+
+    template([ngIf]="page.isFrontPage")
+        h1 Welcome!
+        h2 Page: {{page.title}}
+
+    template([ngIf]="!page.isFrontPage")
+        h1 Page: {{page.title}}
+
+    template([ngIf]="page.isHome")
+        blog-list
+
+    template([ngIf]="!page.isHome && page.content")
+        h2 Content:
+        .content([innerHTML]="page.content | sanitize")
+
+    template([ngIf]="page.authorImage")
+        h2 Author Image:
+        img([src]="page.authorImage.full")
+
+    template([ngIf]="page.mediaId")
+        h2 Featured Image:
+        img([media]="page.mediaId")

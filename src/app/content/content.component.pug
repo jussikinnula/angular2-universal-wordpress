@@ -1,0 +1,8 @@
+template([ngIf]="content")
+    template([ngIf]="content.notFound")
+        h1 Not found
+        p The page you tried to reach was not found.
+    template([ngIf]="content.page")
+        page([page]="content.page")
+    template([ngIf]="content.blog")
+        blog([blog]="content.blog")

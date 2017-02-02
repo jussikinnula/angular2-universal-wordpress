@@ -1,0 +1,4 @@
+template([ngIf]="blog")
+    h1 Blog: {{blog.title}}
+    template([ngIf]="blog.content")
+        .content([innerHTML]="blog.content | sanitize")

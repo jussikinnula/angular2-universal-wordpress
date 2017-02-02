@@ -1,0 +1,16 @@
+template([ngIf]="loading")
+    p Loading blogs list...
+
+template([ngIf]="!loading && blogs")
+    .blog(*ngFor="let blog of blogs")
+        a([routerLink]="[blog.link]")
+            h2 {{blog.title}}
+            template([ngIf]="blog.excerpt")
+                .excerpt([innerHTML]="blog.excerpt | sanitize")
+
+    .load-more
+        button(
+            *ngIf="nextPage > 2 && (loading || (nextPage > currentPage))",
+            (click)="loadMore()",
+            [disabled]="loading"
+        ) Load more

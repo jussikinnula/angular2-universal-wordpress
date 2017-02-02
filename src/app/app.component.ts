@@ -7,4 +7,6 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/
     styleUrls: ['./app.component.styl'],
     templateUrl: './app.component.pug'
 })
-export class AppComponent {}
+export class AppComponent {
+    constructor() {}
+}

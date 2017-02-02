@@ -6,4 +6,4 @@ import { RouterModule } from "@angular/router";
         RouterModule
     ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

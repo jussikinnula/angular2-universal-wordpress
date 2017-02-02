@@ -16,6 +16,7 @@ import * as url from "url";
 
 // Angular 2
 import { enableProdMode } from "@angular/core";
+
 // Angular 2 Universal
 import { createEngine } from "angular2-express-engine";
 
@@ -68,38 +69,6 @@ function ngApp(req, res) {
         originUrl: `http://localhost:${ app.get("port") }`
     });
 }
-
-function checkNotFound(req, res, next) {
-    const wpHome = process.env.WP_HOME || "http://localhost:5001";
-    request(wpHome + "/wp-json/wp/v2/pages", (error, response, body) => {
-        let pageLinks;
-        try {
-            let data = JSON.parse('{"pages":' + body + '}');
-            pageLinks = data.pages.map(page => {
-                return url.parse(page.link).pathname; 
-            });
-        } catch(error) {
-            pageLinks = ['/'];
-        };
-        let currentLink = (url.parse(wpHome + req.originalUrl).pathname + "/").replace(/\/+$/, "/");
-        let pageFound = false;
-        for (let pageLink of pageLinks) {
-            if (pageLink === currentLink) {
-                pageFound = true;
-                break;
-            }
-        }
-
-        if (!pageFound) {
-            res.status(404);
-        }
-
-        next();
-    });
-}
-
-// Check if the URL exists in WP side, if not then return 404 status code
-app.use(checkNotFound);
 
 // All routes are handled by ngApp
 app.get("*", ngApp);

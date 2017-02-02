@@ -1,9 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/throw";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class ApiService {
@@ -12,7 +9,8 @@ export class ApiService {
     constructor(public http: Http) {}
 
     get(endpoint: string, options?: any) {
-        return this.http.get(this.baseUrl + endpoint, options)
+        const url = this.baseUrl + endpoint;
+        return this.http.get(url, options)
             .map(res => res.json())
             .catch(err => {
                 console.log("Error: ", err);

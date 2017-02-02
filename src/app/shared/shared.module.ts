@@ -3,11 +3,12 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 
-import { MenuComponent } from "./components";
+import { MediaComponent, MenuComponent } from "./components";
 import { DatePipe, OrderByPipe, SanitizePipe } from "./pipes";
-import { ApiService, MediaService } from "./services";
+import { ApiService, BlogService, ContentService, MediaService, MetaService } from "./services";
 
 const COMPONENTS = [
+    MediaComponent,
     MenuComponent
 ];
 
@@ -19,7 +20,10 @@ const PIPES = [
 
 const SERVICES = [
     ApiService,
-    MediaService
+    BlogService,
+    ContentService,
+    MediaService,
+    MetaService
 ];
 
 @NgModule({
