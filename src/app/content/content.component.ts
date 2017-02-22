@@ -22,9 +22,9 @@ export class ContentComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscription = this.route.url
-            .map(segments => segments.join(''))
-            .flatMap(url => this.contentService.get(url))
+            .map(segments => segments.join("/"))
             .distinctUntilChanged()
+            .flatMap(url => this.contentService.get(url))
             .subscribe(content => this.content = content);
     }
 
