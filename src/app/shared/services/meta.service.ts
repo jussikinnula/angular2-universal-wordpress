@@ -1,5 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { DOCUMENT } from "@angular/platform-browser";
+import { isBrowser } from "angular-universal";
 
 import { MediaService } from "./media.service";
 
@@ -36,38 +37,32 @@ export class MetaService {
     private updateFields() {
         // Title
         this.document.title = this.title;
-        this.setMetaProperty("og:title", this.title);
-        this.setMetaProperty("twitter:title", this.title);
+        this.updateMetaField("property", "og:title", this.title);
+        this.updateMetaField("name", "twitter:title", this.title);
 
         // Description
-        this.setMetaDescription(this.description);
-        this.setMetaProperty("og:description", this.description);
-        this.setMetaProperty("twitter:description", this.description);
+        this.updateMetaField("name", "description", this.description);
+        this.updateMetaField("property", "og:description", this.description);
+        this.updateMetaField("name", "twitter:description", this.description);
 
         // Image
-        this.setMetaProperty("og:image", this.image);
-        this.setMetaProperty("twitter:image", this.image);
+        this.updateMetaField("property", "og:image", this.image);
+        this.updateMetaField("name", "twitter:image", this.image);
 
         // Link
-        this.setMetaProperty("og:url", this.link);
+        this.updateMetaField("property", "og:url", this.link);
     }
 
-    private setMetaDescription(content: string) {
-        let headChildren = this.document.head.children;
-        for (let i = 0; i < headChildren.length; i++) {
-            let element = headChildren[i];
-            if (element.name === "meta" && element.attribs.name === "description"){
-                element.attribs.content = content;
-            }
-        }
-    }
-
-    private setMetaProperty(property: string, content: string) {
-        let headChildren = this.document.head.children;
-        for (let i = 0; i < headChildren.length; i++) {
-            let element = headChildren[i];
-            if (element.name === "meta" && element.attribs.property === property){
-                element.attribs.content = content;
+    private updateMetaField(name: string, value: string, content: string) {
+        if (isBrowser) {
+            // @TODO in browser side, what's below works only in NodeJS side...
+        } else {
+            let headChildren = this.document.head.children;
+            for (let i = 0; i < headChildren.length; i++) {
+                let element = headChildren[i];
+                if (element.name === "meta" && element.attribs[name] === value){
+                    element.attribs.content = content;
+                }
             }
         }
     }
