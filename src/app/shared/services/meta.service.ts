@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { DOCUMENT } from "@angular/platform-browser";
-import { isBrowser } from "angular-universal";
+import { isBrowser } from "angular2-universal";
 
 import { MediaService } from "./media.service";
 
