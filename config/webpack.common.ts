@@ -51,7 +51,7 @@ export var commonConfig = {
             },
             {
                 test: /\.pug/,
-                loader: 'pug-html-loader'
+                loaders: ['raw-loader', 'pug-html-loader']
             },
             {
                 test: /\.styl$/,
